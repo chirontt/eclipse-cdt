@@ -1,5 +1,5 @@
 #*******************************************************************************
-# Copyright (c) 2002, 2024 QNX Software Systems and others.
+# Copyright (c) 2002, 2025 QNX Software Systems and others.
 #
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License 2.0
@@ -12,6 +12,7 @@
 #     QNX Software Systems - initial API and implementation
 #     Alex Blewitt - MacOSX with a 64-bit vm 
 #     Tue Ton - support for Windows on Arm64
+#     Tue Ton - support for FreeBSD
 #*******************************************************************************/
 SHELL=/bin/bash -o pipefail
 ifeq ($(JAVA_HOME),)
@@ -39,6 +40,20 @@ ifeq ($(UNAME),Darwin)
 LIBS = \
 	$(OS_DIR)/macosx/x86_64/libserial.jnilib
 else
+ifeq ($(UNAME),FreeBSD)
+UNAME-M = $(shell uname -m)
+ifeq ($(UNAME-M),amd64)
+LIBS = \
+	$(OS_DIR)/freebsd/x86_64/libserial.so
+else
+ifeq ($(UNAME-M),arm64)
+LIBS = \
+	$(OS_DIR)/freebsd/aarch64/libserial.so
+else
+$(error Unknown FreeBSD platform: $(UNAME-M))
+endif
+endif
+else
 ifeq ($(findstring ARM64,$(UNAME)),ARM64)
 COMMON_CFLAGS := -Wall -pedantic
 LIBS = \
@@ -46,6 +61,7 @@ LIBS = \
 else
 LIBS = \
 	$(OS_DIR)/win32/x86_64/serial.dll
+endif
 endif
 endif
 endif
@@ -111,3 +127,11 @@ $(OS_DIR)/macosx/x86_64/libserial.jnilib:	serial.c
 $(OS_DIR)/macosx/aarch64/libserial.jnilib:	serial.c
 	mkdir -p $(dir $@) && \
 	arm64-apple-darwin21.1-clang $(COMMON_CFLAGS) $(CFLAGS) -Iinclude -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/darwin $(LDFLAGS) -dynamiclib -o $@ $^
+
+$(OS_DIR)/freebsd/x86_64/libserial.so:	serial.c
+	mkdir -p $(dir $@) && \
+	clang -m64 $(COMMON_CFLAGS) $(CFLAGS) -Iinclude -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/freebsd $(LDFLAGS) -shared -o $@ $^
+
+$(OS_DIR)/freebsd/aarch64/libserial.so:	serial.c
+	mkdir -p $(dir $@) && \
+	clang $(COMMON_CFLAGS) $(CFLAGS) -Iinclude -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/freebsd $(LDFLAGS) -shared -o $@ $^
