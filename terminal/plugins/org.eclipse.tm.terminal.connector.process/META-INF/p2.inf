@@ -85,3 +85,18 @@ requires.12.namespace = org.eclipse.equinox.p2.iu
 requires.12.name = org.eclipse.cdt.core.linux.aarch64
 #requires.12.range = [5.2, 6.0)
 requires.12.filter = (&(osgi.os=linux)(osgi.arch=aarch64))
+
+requires.14.namespace = org.eclipse.equinox.p2.iu
+requires.14.name = org.eclipse.cdt.core.freebsd
+#requires.14.range = [5.2, 6.0)
+requires.14.filter = (osgi.os=freebsd)
+
+requires.15.namespace = org.eclipse.equinox.p2.iu
+requires.15.name = org.eclipse.cdt.core.freebsd.aarch64
+#requires.15.range = [5.1, 6.0)
+requires.15.filter = (&(osgi.os=freebsd)(osgi.arch=aarch64))
+
+requires.16.namespace = org.eclipse.equinox.p2.iu
+requires.16.name = org.eclipse.cdt.core.freebsd.x86_64
+#requires.16.range = [5.1, 6.0)
+requires.16.filter = (&(osgi.os=freebsd)(osgi.arch=x86_64))
