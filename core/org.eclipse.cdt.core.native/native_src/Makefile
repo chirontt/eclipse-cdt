@@ -1,5 +1,5 @@
 #*******************************************************************************
-# Copyright (c) 2002, 2015, 2020 QNX Software Systems and others.
+# Copyright (c) 2002, 2015, 2025 QNX Software Systems and others.
 #
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License 2.0
@@ -11,6 +11,7 @@
 # Contributors:
 #     QNX Software Systems - initial API and implementation
 #     Torbjörn Svensson - Bug 521515 - Adopted jenkins build
+#     Tue Ton - support for FreeBSD
 #*******************************************************************************/
 SHELL=/bin/bash -o pipefail
 ifeq ($(JAVA_HOME),)
@@ -18,7 +19,11 @@ $(error JAVA_HOME not set in environment)
 endif
 
 REPRODUCIBLE_BUILD_WRAPPER := $(shell git rev-parse --show-toplevel)/releng/scripts/reproducible_build_wrapper.py
+# FreeBSD clang compiler (could be cross-compiler to FreeBSD target)
+CLANG ?= cc
 
+OS_DIR_FREEBSD_AARCH64 := ../../org.eclipse.cdt.core.freebsd.aarch64/os/freebsd/aarch64
+OS_DIR_FREEBSD_X86_64 := ../../org.eclipse.cdt.core.freebsd.x86_64/os/freebsd/x86_64
 OS_DIR_WIN32_X86_64 := ../../org.eclipse.cdt.core.win32.x86_64/os/win32/x86_64
 OS_DIR_LINUX_X86_64 := ../../org.eclipse.cdt.core.linux.x86_64/os/linux/x86_64
 OS_DIR_LINUX_AARCH64 := ../../org.eclipse.cdt.core.linux.aarch64/os/linux/aarch64
@@ -52,10 +57,28 @@ LIBS = \
 	$(OS_DIR_MACOS_AARCH64)/libspawner.jnilib \
 	$(OS_DIR_MACOS_AARCH64)/libpty.jnilib
 else
+ifeq ($(UNAME),FreeBSD)
+UNAME-M = $(shell uname -m)
+COMMON_CFLAGS := -Wall -pedantic
+ifeq ($(UNAME-M),amd64)
+LIBS = \
+	$(OS_DIR_FREEBSD_X86_64)/libspawner.so \
+	$(OS_DIR_FREEBSD_X86_64)/libpty.so
+else
+ifeq ($(UNAME-M),arm64)
+LIBS = \
+	$(OS_DIR_FREEBSD_AARCH64)/libspawner.so \
+	$(OS_DIR_FREEBSD_AARCH64)/libpty.so
+else
+$(error Unknown FreeBSD platform: $(UNAME-M))
+endif
+endif
+else
 LIBS = \
 	$(OS_DIR_WIN32_X86_64)/starter.exe \
 	$(OS_DIR_WIN32_X86_64)/spawner.dll \
 	$(OS_DIR_WIN32_X86_64)/pty.dll
+endif
 endif
 endif
 
@@ -195,3 +218,33 @@ $(OS_DIR_MACOS_AARCH64)/libpty.jnilib: unix/openpty.c unix/pty.c unix/ptyio.c
 		-D_REENTRANT \
 		$^ \
 		-dynamiclib -lc
+
+# FreeBSD x86_64
+$(OS_DIR_FREEBSD_X86_64)/libspawner.so: unix/spawner.c unix/io.c unix/exec_unix.c unix/exec_pty.c unix/openpty.c unix/pfind.c
+	mkdir -p $(dir $@) && \
+	$(CLANG) $(COMMON_CFLAGS) -m64 -o $@ -Wl,-soname,$(notdir $@) -Iinclude -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/freebsd -fpic \
+		-D_REENTRANT \
+		$^ \
+		-shared -lc
+
+$(OS_DIR_FREEBSD_X86_64)/libpty.so: unix/openpty.c unix/pty.c unix/ptyio.c
+	mkdir -p $(dir $@) && \
+	$(CLANG) $(COMMON_CFLAGS) -m64 -o $@ -Wl,-soname,$(notdir $@) -Iinclude -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/freebsd -fpic \
+		-D_REENTRANT \
+		$^ \
+		-shared -lc
+
+# FreeBSD aarch64
+$(OS_DIR_FREEBSD_AARCH64)/libspawner.so: unix/spawner.c unix/io.c unix/exec_unix.c unix/exec_pty.c unix/openpty.c unix/pfind.c
+	mkdir -p $(dir $@) && \
+	$(CLANG) $(COMMON_CFLAGS) -o $@ -Wl,-soname,$(notdir $@) -Iinclude -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/freebsd -fpic \
+		-D_REENTRANT \
+		$^ \
+		-shared -lc
+
+$(OS_DIR_FREEBSD_AARCH64)/libpty.so: unix/openpty.c unix/pty.c unix/ptyio.c
+	mkdir -p $(dir $@) && \
+	$(CLANG) $(COMMON_CFLAGS) -o $@ -Wl,-soname,$(notdir $@) -Iinclude -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/freebsd -fpic \
+		-D_REENTRANT \
+		$^ \
+		-shared -lc

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2015 QNX Software Systems and others.
+ * Copyright (c) 2015, 2025 QNX Software Systems and others.
  *
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 2.0
@@ -10,6 +10,7 @@
  *
  * Contributors:
  *     QNX Software Systems - Initial API and implementation
+ *     Tue Ton - Support for FreeBSD
  *******************************************************************************/
 package org.eclipse.cdt.serial;
 
@@ -251,6 +252,8 @@ public class SerialPort {
 		String osName = System.getProperty("os.name"); //$NON-NLS-1$
 		if (osName.equals("Mac OS X")) { //$NON-NLS-1$
 			return listDevs(Pattern.compile("cu\\..*")); //$NON-NLS-1$
+		} else if (osName.equals("FreeBSD")) { //$NON-NLS-1$
+			return listDevs(Pattern.compile("cuau.*")); //$NON-NLS-1$
 		} else if (osName.equals("Linux")) { //$NON-NLS-1$
 			return listDevs(Pattern.compile("(ttyUSB|ttyACM|ttyS).*")); //$NON-NLS-1$
 		} else if (osName.startsWith("Windows")) { //$NON-NLS-1$
