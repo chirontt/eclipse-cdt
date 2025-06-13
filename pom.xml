@@ -125,6 +125,9 @@
 		<module>codan/org.eclipse.cdt.codan.checkers.ui</module>
 
 		<module>core/org.eclipse.cdt.core.native</module>
+		<module>core/org.eclipse.cdt.core.freebsd</module>
+		<module>core/org.eclipse.cdt.core.freebsd.aarch64</module>
+		<module>core/org.eclipse.cdt.core.freebsd.x86_64</module>
 		<module>core/org.eclipse.cdt.core.linux</module>
 		<module>core/org.eclipse.cdt.core.linux.x86_64</module>
 		<module>core/org.eclipse.cdt.core.linux.aarch64</module>
@@ -670,6 +673,16 @@
 					<pomDependencies>consider</pomDependencies>
 					<environments>
 						<environment>
+							<os>freebsd</os>
+							<ws>gtk</ws>
+							<arch>aarch64</arch>
+						</environment>
+						<environment>
+							<os>freebsd</os>
+							<ws>gtk</ws>
+							<arch>x86_64</arch>
+						</environment>
+						<environment>
 							<os>linux</os>
 							<ws>gtk</ws>
 							<arch>x86_64</arch>
@@ -742,6 +755,8 @@
 							<excludes>
 								<plugin id="org.eclipse.cdt.autotools.docs"/>
 								<plugin id="org.eclipse.cdt.meson.docs"/>
+								<plugin id="org.eclipse.cdt.core.freebsd.aarch64"/>
+								<plugin id="org.eclipse.cdt.core.freebsd.x86_64"/>
 								<plugin id="org.eclipse.cdt.core.linux.ppc64le"/>
 								<plugin id="org.eclipse.cdt.core.linux.x86_64"/>
 								<plugin id="org.eclipse.cdt.core.linux.aarch64"/>
