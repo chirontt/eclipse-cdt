@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (c) 2014, 2024 Wind River Systems, Inc. and others. All rights reserved.
+# Copyright (c) 2014, 2025 Wind River Systems, Inc. and others. All rights reserved.
 # This program and the accompanying materials are made available under the terms
 # of the Eclipse Public License 2.0 which accompanies this distribution, and is
 # available at https://www.eclipse.org/legal/epl-2.0/
@@ -91,3 +91,17 @@ requires.13.name = org.eclipse.cdt.core.win32.aarch64
 #requires.13.range = [5.2, 6.0)
 requires.13.filter = (&(osgi.os=win32)(osgi.arch=aarch64))
 
+requires.14.namespace = org.eclipse.equinox.p2.iu
+requires.14.name = org.eclipse.cdt.core.freebsd
+#requires.14.range = [5.2, 6.0)
+requires.14.filter = (osgi.os=freebsd)
+
+requires.15.namespace = org.eclipse.equinox.p2.iu
+requires.15.name = org.eclipse.cdt.core.freebsd.aarch64
+#requires.15.range = [5.1, 6.0)
+requires.15.filter = (&(osgi.os=freebsd)(osgi.arch=aarch64))
+
+requires.16.namespace = org.eclipse.equinox.p2.iu
+requires.16.name = org.eclipse.cdt.core.freebsd.x86_64
+#requires.16.range = [5.1, 6.0)
+requires.16.filter = (&(osgi.os=freebsd)(osgi.arch=x86_64))
