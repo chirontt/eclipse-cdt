@@ -7,6 +7,7 @@
 # Contributors:
 # Wind River Systems - initial API and implementation
 # Tue Ton - support for Linux riscv64
+# Tue Ton - support for FreeBSD
 ###############################################################################
 
 # Most of the dependencies exposed here are actually covered in the feature.xml
@@ -97,3 +98,17 @@ requires.14.name = org.eclipse.cdt.core.linux.riscv64
 #requires.14.range = [5.2, 6.0)
 requires.14.filter = (&(osgi.os=linux)(osgi.arch=riscv64))
 
+requires.15.namespace = org.eclipse.equinox.p2.iu
+requires.15.name = org.eclipse.cdt.core.freebsd
+#requires.15.range = [5.2, 6.0)
+requires.15.filter = (osgi.os=freebsd)
+
+requires.16.namespace = org.eclipse.equinox.p2.iu
+requires.16.name = org.eclipse.cdt.core.freebsd.aarch64
+#requires.16.range = [5.2, 6.0)
+requires.16.filter = (&(osgi.os=freebsd)(osgi.arch=aarch64))
+
+requires.17.namespace = org.eclipse.equinox.p2.iu
+requires.17.name = org.eclipse.cdt.core.freebsd.x86_64
+#requires.17.range = [5.2, 6.0)
+requires.17.filter = (&(osgi.os=freebsd)(osgi.arch=x86_64))
