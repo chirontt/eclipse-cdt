@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2002, 2010 QNX Software Systems and others.
+ * Copyright (c) 2002, 2025 QNX Software Systems and others.
  *
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 2.0
@@ -13,6 +13,7 @@
  *     Wind River Systems, Inc.
  *     Mikhail Zabaluev (Nokia) - bug 82744
  *     Corey Ashford (IBM) - bug 272370, bug 272372
+ *     Tue Ton - Support for FreeBSD
  *******************************************************************************/
 
 /* _XOPEN_SOURCE is needed to bring in the header for ptsname */
@@ -90,7 +91,7 @@ int ptym_open(char *pts_name) {
     char *ptr;
 
     strcpy(pts_name, "/dev/ptmx");
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(__FreeBSD__)
     fdm = posix_openpt(O_RDWR | O_NOCTTY);
 #else
     fdm = getpt();
