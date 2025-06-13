@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2015 QNX Software Systems and others.
+ * Copyright (c) 2015, 2025 QNX Software Systems and others.
  *
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 2.0
@@ -11,8 +11,9 @@
  * Contributors:
  *     QNX Software Systems - initial API and implementation
  *     STMicroelectronics
+ *     Tue Ton - Support for FreeBSD
  *******************************************************************************/
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(__FreeBSD__)
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/uio.h>
@@ -27,7 +28,7 @@
 #include <strings.h>
 #include <errno.h>
 #include <sys/ioctl.h>
-#ifndef __APPLE__
+#ifdef __linux__
 #include <linux/serial.h>
 #endif
 #else
@@ -45,7 +46,7 @@
  * stage. This method obtains the last error from OS to include in the
  * IOException
  */
-#ifndef __APPLE__
+#if !defined(__APPLE__) && !defined(__FreeBSD__)
 #ifndef __MINGW32__
 static void closeAndthrowIOException(int fd, JNIEnv *env, const char *msg) {
 #else
@@ -96,7 +97,7 @@ JNIEXPORT jlong JNICALL FUNC(open0)(JNIEnv *env, jobject jobj, jstring portName,
     tcgetattr(fd, &options);
     options.c_cflag |= (CLOCAL | CREAD);
 
-#ifndef __APPLE__
+#ifdef __linux__
     speed_t baud;
     switch (baudRate) {
     case 110:
@@ -203,7 +204,7 @@ JNIEXPORT jlong JNICALL FUNC(open0)(JNIEnv *env, jobject jobj, jstring portName,
         cfsetospeed(&options, baud);
     }
 
-#else
+#else  // __APPLE__ or __FreeBSD__
     // On OSX speed_t is simply the baud rate:
     // https://developer.apple.com/library/archive/documentation/System/Conceptual/ManPages_iPhoneOS/man3/cfsetispeed.3.html
     cfsetispeed(&options, baudRate);
