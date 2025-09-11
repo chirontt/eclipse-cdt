@@ -34,6 +34,9 @@
 			<id>only-terminal</id>
 			<modules>
 				<module>repo</module>
+				<module>../core/org.eclipse.cdt.core.freebsd</module>
+				<module>../core/org.eclipse.cdt.core.freebsd.aarch64</module>
+				<module>../core/org.eclipse.cdt.core.freebsd.x86_64</module>
 				<module>../core/org.eclipse.cdt.core.linux</module>
 				<module>../core/org.eclipse.cdt.core.linux.aarch64</module>
 				<module>../core/org.eclipse.cdt.core.linux.ppc64le</module>
