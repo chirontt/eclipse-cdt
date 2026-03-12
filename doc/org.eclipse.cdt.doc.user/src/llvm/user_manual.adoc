@@ -28,9 +28,9 @@ endif::[]
 // adoc files.
 // ENDOFHEADER
 
-== LLVM with Clang/GCC for Eclipse CDT
+== LLVM with Clang for Eclipse CDT
 
-This guide is intended for the users of the LLVM with Clang/GCC for
+This guide is intended for the users of the LLVM with Clang for
 Eclipse CDT plugin. It describes the initial configuration, general
 information and some special cases about the plugin.
 
