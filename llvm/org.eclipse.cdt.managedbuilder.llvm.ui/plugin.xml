@@ -13,6 +13,7 @@ Contributors:
     Nokia Siemens Networks - initial implementation
     John Dallaway - add option for clang '-emit-llvm' (#1277)
     John Dallaway - update linker options for clang (#1427)
+    Tue Ton - support for FreeBSD
 -->
 <plugin>
    <extension
@@ -1234,7 +1235,7 @@ Contributors:
             id="cdt.managedbuild.toolchain.llvm.clang.linux.base"
             isAbstract="false"
             name="%ToolChainName.llvm.linux"
-            osList="linux,hpux,aix,qnx"
+            osList="linux,hpux,aix,qnx,freebsd"
             superClass="cdt.managedbuild.toolchain.llvm.clang.base">
          <targetPlatform
                archList="all"
@@ -1242,7 +1243,7 @@ Contributors:
                id="cdt.managedbuild.target.llvm.platform.base"
                isAbstract="true"
                name="%PlatformName.Dbg"
-               osList="linux,hpux,aix,qnx">
+               osList="linux,hpux,aix,qnx,freebsd">
          </targetPlatform>
       </toolChain>
       <toolChain
@@ -1320,7 +1321,7 @@ Contributors:
             id="cdt.managedbuild.toolchain.llvm.static.compiler.linux.base"
             isAbstract="false"
             name="%ToolChainName.llvm.static.compiler.linux"
-            osList="linux,hpux,aix,qnx"
+            osList="linux,hpux,aix,qnx,freebsd"
             superClass="cdt.managedbuild.toolchain.llvm.with.static.compiler.base">
          <targetPlatform
                archList="all"
@@ -1328,7 +1329,7 @@ Contributors:
                id="cdt.managedbuild.target.llvm.static.compiler.linux.platform.base"
                isAbstract="true"
                name="%PlatformName.Dbg"
-               osList="linux,hpux,aix,qnx">
+               osList="linux,hpux,aix,qnx,freebsd">
          </targetPlatform>
       </toolChain>
       <toolChain
@@ -1386,7 +1387,7 @@ Contributors:
             id="cdt.managedbuild.toolchain.llvm.jit.linux.base"
             isAbstract="false"
             name="%ToolChainName.llvm.jit.linux"
-            osList="linux,hpux,aix,qnx"
+            osList="linux,hpux,aix,qnx,freebsd"
             superClass="cdt.managedbuild.toolchain.llvm.jit.base">
          <targetPlatform
                archList="all"
@@ -1394,7 +1395,7 @@ Contributors:
                id="cdt.managedbuild.target.llvm.jit.linux.platform.base"
                isAbstract="true"
                name="%PlatformName.Dbg"
-               osList="linux,hpux,aix,qnx">
+               osList="linux,hpux,aix,qnx,freebsd">
          </targetPlatform>
       </toolChain>
       <toolChain
@@ -1473,7 +1474,7 @@ Contributors:
                <targetPlatform
                      archList="all"
                      id="cdt.managedbuild.target.llvm.clang.linux.platform.exe.debug"
-                     osList="linux,hpux,aix,qnx"
+                     osList="linux,hpux,aix,qnx,freebsd"
                      superClass="cdt.managedbuild.target.llvm.platform.base">
                </targetPlatform>
                <builder
@@ -1514,7 +1515,7 @@ Contributors:
                <targetPlatform
                      archList="all"
                      id="cdt.managedbuild.target.llvm.clang.linux.platform.exe.release"
-                     osList="linux,hpux,aix,qnx"
+                     osList="linux,hpux,aix,qnx,freebsd"
                      superClass="cdt.managedbuild.target.llvm.platform.base">
                </targetPlatform>
                <builder
@@ -1561,7 +1562,7 @@ Contributors:
                <targetPlatform
                      archList="all"
                      id="cdt.managedbuild.target.llvm.clang.linux.platform.so.debug"
-                     osList="linux,hpux,aix,qnx"
+                     osList="linux,hpux,aix,qnx,freebsd"
                      superClass="cdt.managedbuild.target.llvm.platform.base">
                </targetPlatform>
                <builder
@@ -1602,7 +1603,7 @@ Contributors:
                <targetPlatform
                      archList="all"
                      id="cdt.managedbuild.target.llvm.clang.linux.platform.so.release"
-                     osList="linux,hpux,aix,qnx"
+                     osList="linux,hpux,aix,qnx,freebsd"
                      superClass="cdt.managedbuild.target.llvm.platform.base">
                </targetPlatform>
                <builder
@@ -1649,7 +1650,7 @@ Contributors:
                <targetPlatform
                      archList="all"
                      id="cdt.managedbuild.target.llvm.clang.linux.platform.lib.debug"
-                     osList="linux,hpux,aix,qnx"
+                     osList="linux,hpux,aix,qnx,freebsd"
                      superClass="cdt.managedbuild.target.llvm.platform.base">
                </targetPlatform>
                <builder
@@ -1690,7 +1691,7 @@ Contributors:
                <targetPlatform
                      archList="all"
                      id="cdt.managedbuild.target.llvm.clang.linux.platform.lib.release"
-                     osList="linux,hpux,aix,qnx"
+                     osList="linux,hpux,aix,qnx,freebsd"
                      superClass="cdt.managedbuild.target.llvm.platform.base">
                </targetPlatform>
                <builder
@@ -2626,7 +2627,7 @@ Contributors:
                <targetPlatform
                      archList="all"
                      id="cdt.managedbuild.target.llvm.static.compiler.linux.platform.exe.debug"
-                     osList="linux,hpux,aix,qnx"
+                     osList="linux,hpux,aix,qnx,freebsd"
                      superClass="cdt.managedbuild.target.llvm.platform.base">
                </targetPlatform>
                <builder
@@ -2655,7 +2656,7 @@ Contributors:
                <targetPlatform
                      archList="all"
                      id="cdt.managedbuild.target.llvm.static.compiler.linux.platform.exe.release"
-                     osList="linux,hpux,aix,qnx"
+                     osList="linux,hpux,aix,qnx,freebsd"
                      superClass="cdt.managedbuild.target.llvm.platform.base">
                </targetPlatform>
                <builder
@@ -2690,7 +2691,7 @@ Contributors:
                <targetPlatform
                      archList="all"
                      id="cdt.managedbuild.target.llvm.static.compiler.linux.platform.so.debug"
-                     osList="linux,hpux,aix,qnx"
+                     osList="linux,hpux,aix,qnx,freebsd"
                      superClass="cdt.managedbuild.target.llvm.platform.base">
                </targetPlatform>
                <builder
@@ -2719,7 +2720,7 @@ Contributors:
                <targetPlatform
                      archList="all"
                      id="cdt.managedbuild.target.llvm.static.compiler.linux.platform.so.release"
-                     osList="linux,hpux,aix,qnx"
+                     osList="linux,hpux,aix,qnx,freebsd"
                      superClass="cdt.managedbuild.target.llvm.platform.base">
                </targetPlatform>
                <builder
@@ -2754,7 +2755,7 @@ Contributors:
                <targetPlatform
                      archList="all"
                      id="cdt.managedbuild.target.llvm.static.compiler.linux.platform.lib.debug"
-                     osList="linux,hpux,aix,qnx"
+                     osList="linux,hpux,aix,qnx,freebsd"
                      superClass="cdt.managedbuild.target.llvm.platform.base">
                </targetPlatform>
                <builder
@@ -2783,7 +2784,7 @@ Contributors:
                <targetPlatform
                      archList="all"
                      id="cdt.managedbuild.target.llvm.static.compiler.linux.platform.lib.release"
-                     osList="linux,hpux,aix,qnx"
+                     osList="linux,hpux,aix,qnx,freebsd"
                      superClass="cdt.managedbuild.target.llvm.platform.base">
                </targetPlatform>
                <builder
@@ -3274,7 +3275,7 @@ Contributors:
                <targetPlatform
                      archList="all"
                      id="cdt.managedbuild.target.llvm.jit.linux.platform.exe.debug"
-                     osList="linux,hpux,aix,qnx"
+                     osList="linux,hpux,aix,qnx,freebsd"
                      superClass="cdt.managedbuild.target.llvm.platform.base">
                </targetPlatform>
                <builder
@@ -3303,7 +3304,7 @@ Contributors:
                <targetPlatform
                      archList="all"
                      id="cdt.managedbuild.target.llvm.jit.linux.platform.exe.release"
-                     osList="linux,hpux,aix,qnx"
+                     osList="linux,hpux,aix,qnx,freebsd"
                      superClass="cdt.managedbuild.target.llvm.platform.base">
                </targetPlatform>
                <builder
@@ -3338,7 +3339,7 @@ Contributors:
                <targetPlatform
                      archList="all"
                      id="cdt.managedbuild.target.llvm.jit.linux.platform.so.debug"
-                     osList="linux,hpux,aix,qnx"
+                     osList="linux,hpux,aix,qnx,freebsd"
                      superClass="cdt.managedbuild.target.llvm.platform.base">
                </targetPlatform>
                <builder
@@ -3367,7 +3368,7 @@ Contributors:
                <targetPlatform
                      archList="all"
                      id="cdt.managedbuild.target.llvm.jit.linux.platform.so.release"
-                     osList="linux,hpux,aix,qnx"
+                     osList="linux,hpux,aix,qnx,freebsd"
                      superClass="cdt.managedbuild.target.llvm.platform.base">
                </targetPlatform>
                <builder
@@ -3402,7 +3403,7 @@ Contributors:
                <targetPlatform
                      archList="all"
                      id="cdt.managedbuild.target.llvm.jit.linux.platform.lib.debug"
-                     osList="linux,hpux,aix,qnx"
+                     osList="linux,hpux,aix,qnx,freebsd"
                      superClass="cdt.managedbuild.target.llvm.platform.base">
                </targetPlatform>
                <builder
@@ -3431,7 +3432,7 @@ Contributors:
                <targetPlatform
                      archList="all"
                      id="cdt.managedbuild.target.llvm.jit.linux.platform.lib.release"
-                     osList="linux,hpux,aix,qnx"
+                     osList="linux,hpux,aix,qnx,freebsd"
                      superClass="cdt.managedbuild.target.llvm.platform.base">
                </targetPlatform>
                <builder
@@ -3490,7 +3491,7 @@ Contributors:
                <targetPlatform
                      archList="all"
                      id="cdt.managedbuild.target.llvm.jit.macosx.platform.exe.debug"
-                     osList="macosx,hpux,aix,qnx"
+                     osList="macosx,hpux,aix,qnx,freebsd"
                      superClass="cdt.managedbuild.target.llvm.platform.base">
                </targetPlatform>
                <builder
@@ -3519,7 +3520,7 @@ Contributors:
                <targetPlatform
                      archList="all"
                      id="cdt.managedbuild.target.llvm.jit.macosx.platform.exe.release"
-                     osList="macosx,hpux,aix,qnx"
+                     osList="macosx,hpux,aix,qnx,freebsd"
                      superClass="cdt.managedbuild.target.llvm.platform.base">
                </targetPlatform>
                <builder
@@ -3554,7 +3555,7 @@ Contributors:
                <targetPlatform
                      archList="all"
                      id="cdt.managedbuild.target.llvm.jit.macosx.platform.so.debug"
-                     osList="macosx,hpux,aix,qnx"
+                     osList="macosx,hpux,aix,qnx,freebsd"
                      superClass="cdt.managedbuild.target.llvm.platform.base">
                </targetPlatform>
                <builder
@@ -3583,7 +3584,7 @@ Contributors:
                <targetPlatform
                      archList="all"
                      id="cdt.managedbuild.target.llvm.jit.macosx.platform.so.release"
-                     osList="macosx,hpux,aix,qnx"
+                     osList="macosx,hpux,aix,qnx,freebsd"
                      superClass="cdt.managedbuild.target.llvm.platform.base">
                </targetPlatform>
                <builder
@@ -3618,7 +3619,7 @@ Contributors:
                <targetPlatform
                      archList="all"
                      id="cdt.managedbuild.target.llvm.jit.macosx.platform.lib.debug"
-                     osList="macosx,hpux,aix,qnx"
+                     osList="macosx,hpux,aix,qnx,freebsd"
                      superClass="cdt.managedbuild.target.llvm.platform.base">
                </targetPlatform>
                <builder
@@ -3647,7 +3648,7 @@ Contributors:
                <targetPlatform
                      archList="all"
                      id="cdt.managedbuild.target.llvm.jit.macosx.platform.lib.release"
-                     osList="macosx,hpux,aix,qnx"
+                     osList="macosx,hpux,aix,qnx,freebsd"
                      superClass="cdt.managedbuild.target.llvm.platform.base">
                </targetPlatform>
                <builder

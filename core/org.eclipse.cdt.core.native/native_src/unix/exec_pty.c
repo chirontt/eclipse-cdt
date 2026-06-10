@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004, 2010 QNX Software Systems and others.
+ * Copyright (c) 2004, 2026 QNX Software Systems and others.
  *
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 2.0
@@ -13,6 +13,7 @@
  *     Wind River Systems, Inc.
  *     Mikhail Zabaluev (Nokia) - bug 82744
  *     Mikhail Sennikovsky - bug 145737
+ *     Tue Ton - Support for FreeBSD
  *******************************************************************************/
 #include "exec0.h"
 #include "openpty.h"
@@ -50,7 +51,7 @@ static int close_all_fds_using_parsing(unsigned int from_fd_inclusive) {
         close(from_fd_inclusive + i);
     }
 
-#if defined(__APPLE__)
+#if defined(__APPLE__) || defined(__FreeBSD__)
 #define FD_DIR "/dev/fd"
 #else
 #define FD_DIR "/proc/self/fd"
