@@ -12,7 +12,7 @@
 <feature
       id="org.eclipse.cdt.testing"
       label="%featureName"
-      version="12.6.0.qualifier"
+      version="12.7.0.qualifier"
       provider-name="%providerName"
       license-feature="org.eclipse.license"
       license-feature-version="0.0.0">
@@ -46,13 +46,6 @@
          download-size="0"
          install-size="0"
          version="0.0.0"/>
-
-   <plugin
-         id="org.eclipse.ant.optional.junit"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         fragment="true"/>
 
    <plugin
          id="org.eclipse.test"
