@@ -4,9 +4,9 @@
     type='org.eclipse.equinox.internal.p2.artifact.repository.CompositeArtifactRepository' version='1.0.0'>
   <properties size='1'>
     <!-- timestamp made with date +%s000 -->
-    <property name='p2.timestamp' value='1781183635000'/>
+    <property name='p2.timestamp' value='1788964606000'/>
   </properties>
   <children size='1'>
-    <child location='../cdt-lsp-3.6'/>
+    <child location='../cdt-lsp-3.7'/>
   </children>
 </repository>
